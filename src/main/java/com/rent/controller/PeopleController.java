@@ -18,7 +18,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 @RestController
 @CrossOrigin(allowCredentials = "true")
 @RequestMapping("/api/people")
