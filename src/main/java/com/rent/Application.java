@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.rent.dao")
-public class RentApplication {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(RentApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

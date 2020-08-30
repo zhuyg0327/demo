@@ -5,6 +5,7 @@ public class Leader {
     private String leaderId;
     private String leaderName;
     private String sort;
+    private Integer type;
 
     @Override
     public String toString() {
@@ -13,6 +14,7 @@ public class Leader {
                 ", leaderId='" + leaderId + '\'' +
                 ", leaderName='" + leaderName + '\'' +
                 ", sort='" + sort + '\'' +
+                ", type=" + type +
                 '}';
     }
 
@@ -46,5 +48,13 @@ public class Leader {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
