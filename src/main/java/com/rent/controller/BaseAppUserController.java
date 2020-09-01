@@ -5,6 +5,7 @@ import com.rent.Base.Md5TokenGenerator;
 import com.rent.entity.BaseAppUser;
 import com.rent.service.BaseAppUserService;
 import com.rent.util.CommonUtil;
+import com.rent.util.CurrentUser;
 import com.rent.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class BaseAppUserController {
     @Autowired
     BaseAppUserService baseAppUserService;
     @Autowired
-    private  Md5TokenGenerator tokenGenerator;
+    private Md5TokenGenerator tokenGenerator;
     private static final Logger logger = LoggerFactory.getLogger(BaseAppUserController.class);
 
     //登录
@@ -38,41 +39,47 @@ public class BaseAppUserController {
         map.put("username", username);
         map.put("password", password);
         map.put("power", power);
-        BaseAppUser user=baseAppUserService.login(map);
-        if(user !=null){
-            String token = SetRedisData(username, password);
-            Response.result(200,"登录成功",token);
-        }else{
-            Response.json("result","failed");
+        BaseAppUser user = baseAppUserService.login(map);
+        if (user != null) {
+            String token = SetRedisData(user.getUserId(), password);
+            Response.result(200, "登录成功", token);
+        } else {
+            Response.json("result", "failed");
         }
     }
+
     @RequestMapping(value = "test", method = RequestMethod.GET)
     @AuthToken
     public void test() {
         logger.info("**************测试start**************");
-        Response.json("result","success");
+        String userId = CurrentUser.getUserId();
+        System.out.println(userId);
+        Response.json("result", "success");
+        //Response.result(1,"success",userid);
     }
+
     /**
      * 在redis中进行数据的绑定
-     * @Title: SetRedisData
-     * @Description: TODO
-     * @param username
+     *
+     * @param userId
      * @param password
      * @return
+     * @Title: SetRedisData
+     * @Description: TODO
      * @author zyg  2020年8月30日
      */
-    private String SetRedisData(String username, String password) {
+    private String SetRedisData(String userId, String password) {
         //此处主要设置你的redis的ip和端口号，我的redis是在本地
         Jedis jedis = new Jedis("127.0.0.1", 6379);
-        String token = tokenGenerator.generate(username, password);
-        jedis.set(username, token);
+        String token = tokenGenerator.generate(userId, password);
+        jedis.set(userId, token);
         //设置key过期时间，到期会自动删除
-        jedis.expire(username, CommonUtil.TOKEN_EXPIRE_TIME);
-        //将token和username以键值对的形式存入到redis中进行双向绑定
-        jedis.set(token, username);
+        jedis.expire(userId, CommonUtil.TOKEN_EXPIRE_TIME);
+        //将token和userid以键值对的形式存入到redis中进行双向绑定
+        jedis.set(token, userId);
         jedis.expire(token, CommonUtil.TOKEN_EXPIRE_TIME);
         Long currentTime = System.currentTimeMillis();
-        jedis.set(token + username, currentTime.toString());
+        jedis.set(token + userId, currentTime.toString());
         //用完关闭
         jedis.close();
         return token;

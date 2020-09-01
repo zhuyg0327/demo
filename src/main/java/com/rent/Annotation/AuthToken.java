@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * token验证注解
  * @Description: TODO
  * @ClassName: AuthToken
  * @author chengshengqing  2019年7月2日

@@ -1,5 +1,6 @@
 package com.rent.controller;
 
+import com.rent.Annotation.AuthToken;
 import com.rent.entity.Leader;
 import com.rent.service.LeaderService;
 import com.rent.util.Response;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AuthToken
 @RestController
 @CrossOrigin(allowCredentials = "true")
 @RequestMapping("/api/leader")

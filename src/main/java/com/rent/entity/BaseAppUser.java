@@ -1,12 +1,13 @@
 package com.rent.entity;
 
 public class BaseAppUser {
-   private String id;
-   private String userId;
-   private String userName;
-   private String userPassword;
-   private String sex;
-   private Integer status;
+    private String id;
+    private String userId;
+    private String userName;
+    private String userPassword;
+    private String sex;
+    private Integer status;
+    private Integer power;
 
     @Override
     public String toString() {
@@ -17,6 +18,7 @@ public class BaseAppUser {
                 ", userPassword='" + userPassword + '\'' +
                 ", sex='" + sex + '\'' +
                 ", status=" + status +
+                ", power=" + power +
                 '}';
     }
 
@@ -66,5 +68,13 @@ public class BaseAppUser {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getPower() {
+        return power;
+    }
+
+    public void setPower(Integer power) {
+        this.power = power;
     }
 }

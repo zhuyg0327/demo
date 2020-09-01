@@ -21,4 +21,10 @@ public class BaseAppUserServiceImpl implements BaseAppUserService{
         BaseAppUser user=dao.login(map);
         return user;
     }
+    //查询用户信息根据id
+    @Override
+   public BaseAppUser queryById(Map<String,Object> map){
+        BaseAppUser user=dao.login(map);
+        return user;
+    }
 }
