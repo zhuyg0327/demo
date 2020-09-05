@@ -1,0 +1,51 @@
+#端口设置
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+#数据库设置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/beijing_demo?useUnicode=true&characterEncoding=utf-8
+    username: root
+
+#mybatis设置
+mybatis:
+  mapper-locations: classpath*:com/**/dao/*.xml
+  type-aliases-package: com.rent.entity
+
+#图片上传路径设置
+web:
+  upload:
+    image-path: F:\images
+    image-path-two: F:\others-images
+
+#分页组件设置
+#页数超过最大页数不显示数据
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  support-methods-arguments: true
+
+mvc:
+  static-path-pattern: /static/**
+resources:
+  static-locations: classpath:/static/,classpath:/public/,file:${web.upload.image-path},file:${web.upload.image-path-two}
+
+#redis的设置，如果你的redis没有设置密码,那么spring.redis.password就不用写了，
+#注释掉就可以，我的redis在本地，没有设置初始密码，所以直接注释掉
+redis:
+  host: 127.0.0.1
+  port: 6379
+#password： 123456
+
+#文件上传设置
+servlet:
+  multipart:
+    enabled: true
+    max-file-size: 5000000
+    max-request-size: 5000000
+

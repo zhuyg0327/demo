@@ -116,7 +116,7 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
-                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
@@ -124,7 +124,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
-                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>

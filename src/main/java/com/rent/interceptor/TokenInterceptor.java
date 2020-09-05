@@ -48,7 +48,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         //验证token
         if (method.getAnnotation(AuthToken.class) != null || handlerMethod.getBeanType().getAnnotation(AuthToken.class) != null) {
             String token = request.getParameter(Authorization);
-
+            //用于获取token信息 放入集合，方便以后随时获取
             requestThreadLocal.set(request);
             tokenThreadLocal.set(token);
 
@@ -82,15 +82,16 @@ public class TokenInterceptor implements HandlerInterceptor {
                 return true;
             } else {
                 JSONObject jsonObject = new JSONObject();
-
                 PrintWriter out = null;
+                log.info("token 校验异常！");
                 try {
                     response.setStatus(unauthorizedErrorCode);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
                     jsonObject.put("code", ((HttpServletResponse) response).getStatus());
                     //鉴权失败后返回的错误信息，默认为401 unauthorized
-                    jsonObject.put("message", HttpStatus.UNAUTHORIZED);
+                    jsonObject.put("reason", HttpStatus.UNAUTHORIZED);
+                    jsonObject.put("message","token---->undefined！");
                     out = response.getWriter();
                     out.println(jsonObject);
 
