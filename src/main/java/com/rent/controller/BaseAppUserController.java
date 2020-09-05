@@ -2,10 +2,12 @@ package com.rent.controller;
 
 import com.rent.Annotation.AuthToken;
 import com.rent.Base.Md5TokenGenerator;
+import com.rent.Base.user.UserConfig;
 import com.rent.entity.BaseAppUser;
+import com.rent.entity.User;
 import com.rent.service.BaseAppUserService;
+import com.rent.service.UserService;
 import com.rent.util.CommonUtil;
-import com.rent.util.CurrentUser;
 import com.rent.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,9 @@ public class BaseAppUserController {
     @Autowired
     BaseAppUserService baseAppUserService;
     @Autowired
-    private Md5TokenGenerator tokenGenerator;
+    private Md5TokenGenerator tokenGenerator;@Autowired
+    UserService userService;
+
     private static final Logger logger = LoggerFactory.getLogger(BaseAppUserController.class);
 
     //登录
@@ -52,10 +56,8 @@ public class BaseAppUserController {
     @AuthToken
     public void test() {
         logger.info("**************测试start**************");
-        String userId = CurrentUser.getUserId();
-        System.out.println(userId);
-        Response.json("result", "success");
-        //Response.result(1,"success",userid);
+        User userinfo= UserConfig.getUserInfo();
+        Response.json(userinfo);
     }
 
     /**
