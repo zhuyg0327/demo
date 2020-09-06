@@ -25,6 +25,9 @@
         <if test="username !=null and username !=''">
             AND user_name = #{username}
         </if>
+        <if test="account !=null and account !=''">
+            AND account = #{account}
+        </if>
         <if test="password !=null and password !=''">
             AND user_password = #{password}
         </if>

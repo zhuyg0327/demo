@@ -40,16 +40,21 @@ public class BaseAppUserController {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseAppUserController.class);
 
-    //登录
+    /**
+     * 根据账号、密码以及用户身份登录
+     * @param account
+     * @param password
+     * @param power
+     */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public void login(String username, String password, Integer power) {
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || power == null) {
-            Response.json("result", "用户名密码不能为空！");
+    public void login(String account, String password, Integer power) {
+        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password) || power == null) {
+            Response.json("result", "账号密码不能为空！");
             return;
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("username", username);
+        map.put("account", account);
         map.put("password", password);
         map.put("power", power);
         BaseAppUser user = baseAppUserService.login(map);
@@ -57,7 +62,7 @@ public class BaseAppUserController {
             String token = SetRedisData(user.getUserId(), password);
             Response.result(200, "登录成功", token);
         } else {
-            Response.json("result", "failed");
+            Response.json("result", "登录失败");
         }
     }
 
