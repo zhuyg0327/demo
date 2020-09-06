@@ -15,7 +15,8 @@ spring:
 #mybatis设置
 mybatis:
   mapper-locations: classpath*:com/**/dao/*.xml
-  type-aliases-package: com.rent.entity
+  #type-aliases-package: com.rent.entity
+  type-aliases-package: classpath*:com/**/entity
 
 #图片上传路径设置
 web:
