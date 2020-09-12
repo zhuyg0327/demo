@@ -51,4 +51,11 @@
     from BASE_APP_USER a,organ b
     where a.dept_id = #{organid} and b.ID=a.dept_id order by a.SORT
     </select>
+
+    <select id="queryall"  resultMap="resultMap">
+    select *
+    from  base_app_user
+    where 1=1
+    order by sort
+  </select>
 </mapper>

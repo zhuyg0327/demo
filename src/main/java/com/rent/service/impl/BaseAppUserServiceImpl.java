@@ -33,4 +33,10 @@ public class BaseAppUserServiceImpl implements BaseAppUserService {
         List<BaseAppUser> list = dao.findByOrganid(organId);
         return list;
     }
+    //查询所有
+    @Override
+    public List<BaseAppUser> queryAll() {
+        List<BaseAppUser> user = dao.queryall();
+        return user;
+    }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class BaseAppUserController {
 
     /**
      * 根据账号、密码以及用户身份登录
+     *
      * @param account
      * @param password
      * @param power
@@ -159,5 +161,37 @@ public class BaseAppUserController {
         if (jsons.size() > 0)
             result.put("children", jsons);
         return result;
+    }
+
+    @RequestMapping({"/insertBatch"})
+    @ResponseBody
+    public void insertBatch() {
+        List<BaseAppUser> user1 = baseAppUserService.queryAll();
+        List<User> user2 = new ArrayList<>();
+        List<User> users = userService.queryAll();
+        if (users.size() > 0 && users != null) {
+            userService.deleteAll();
+        }
+
+        if (user1.size() > 0) {
+            for (BaseAppUser baseUser : user1) {
+                User user =new User();
+                user.setId(baseUser.getId());
+                user.setAccount(baseUser.getAccount());
+                user.setDeptId(baseUser.getDeptId());
+                user.setDeptName(baseUser.getDeptName());
+                user.setUserId(baseUser.getUserId());
+                user.setUserName(baseUser.getUserName());
+                user.setPower(baseUser.getPower());
+                user.setSex(baseUser.getSex());
+                user.setStatus(baseUser.getStatus());
+                user.setSort(baseUser.getSort());
+                user.setTelephone(baseUser.getTelephone());
+                user.setUserPassword(baseUser.getUserPassword());
+                user2.add(user);
+            }
+            userService.insertBatch(user2);
+            Response.json("result","success");
+        }
     }
 }

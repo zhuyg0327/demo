@@ -13,4 +13,7 @@ public interface BaseAppUserService {
     BaseAppUser queryById(Map<String, Object> map);
 
     List<BaseAppUser> findByOrganid(String organId);
+
+    //查询所有
+    public List<BaseAppUser> queryAll();
 }

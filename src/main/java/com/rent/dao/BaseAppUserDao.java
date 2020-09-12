@@ -15,4 +15,8 @@ public interface BaseAppUserDao {
     BaseAppUser queryById(Map<String, Object> map);
 
     List<BaseAppUser> findByOrganid(String organId);
+
+    //查询所有用户
+    List<BaseAppUser> queryall();
+
 }
