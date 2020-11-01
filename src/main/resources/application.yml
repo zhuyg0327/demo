@@ -1,6 +1,6 @@
 #端口设置
 server:
-  port: 80
+  port: 8089
   servlet:
     context-path: /
 
